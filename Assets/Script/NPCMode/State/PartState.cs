@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PartState : MonoBehaviour
 {
     #region Internal Member
     [SerializeField] Sprite[] _portTexture;
-    SpriteRenderer _spriteRenderer;    
+    Image _image;    
     int _portState;
     public int PortStateMax
     {
@@ -23,21 +24,21 @@ public class PartState : MonoBehaviour
             }
             else
             {
-                this.SpriteRenderer.sprite = this._portTexture[_portState];
+                this.Image.sprite = this._portTexture[_portState];
             }
         }
         get { return _portState; }
     }
 
-    private SpriteRenderer SpriteRenderer
+    private Image Image
     {
         get
         {
-            if (!_spriteRenderer)
+            if (!_image)
             {
-                this._spriteRenderer = this.GetComponent<SpriteRenderer>();
+                this._image = this.GetComponent<Image>();
             }
-            return this._spriteRenderer;
+            return this._image;
         }
     }
 
