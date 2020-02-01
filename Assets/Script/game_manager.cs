@@ -6,18 +6,20 @@ using UnityEngine.UI;
 //共用變數和遊戲的運行(介面轉換)
 public class game_manager : MonoBehaviour
 {
-	public bool gaming = false;                 //遊戲開始狀態
+	public bool gaming = false;							//遊戲開始狀態
 
-	int start_count = 5;						//開始遊戲時的倒數
-	public GameObject count_canvas;             //倒數的canvas
-	public Text count_text;                     //倒數的文字
+	int start_count = 5;								//開始遊戲時的倒數
+	public GameObject count_canvas;						//倒數的canvas
+	public Text count_text;								//倒數的文字
 
-	public Sprite[] condition;                  //病狀圖案
-	public int[] ID;                            //該關題目的病狀編號
-	static int stage = 1;                       //第幾關
+	public Sprite[] condition;							//病狀圖案
+	public int[] ID;									//該關題目的病狀編號
+	static int stage = 1;								//第幾關
+
+	public static int[] score = { 0, 0, 0, 0 };			//每個玩家的分數
 
 	void Start() {
-		gaming = false;							//先倒數所以入場景為非遊戲狀態
+		gaming = false;									//先倒數所以入場景為非遊戲狀態
 		StartCoroutine(count_down());
 
 		//每關的病狀會增加
