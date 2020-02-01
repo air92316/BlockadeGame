@@ -42,7 +42,6 @@ public class NPC_condition : MonoBehaviour
 
 		//設定病狀(部位的種類)
 		for (int i = 0; i < type.Length; i++) {
-			Debug.Log("sp.Lengt = " + m_manager.condition[type[i]].sp.Length);
 			condition_ID[i] = Random.Range(0, m_manager.condition[type[i]].sp.Length)+1;          //該[部位]的[症狀]長度
 
 			set_condition[i,0] = type[i];
