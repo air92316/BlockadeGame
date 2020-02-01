@@ -53,7 +53,7 @@ public class PeopleShow : MonoBehaviour
 
         for (int i = _pool.Count -1; i >= 0; i--)
         {
-            if(_pool[i].GetComponent<RectTransform>().anchoredPosition.y < -m_overHight || _pool[i].GetComponent<RectTransform>().anchoredPosition.x < -1280 || _pool[i].GetComponent<RectTransform>().anchoredPosition.x > 1280)
+            if(_pool[i].GetComponent<RectTransform>().anchoredPosition.y < -m_overHight -300 || _pool[i].GetComponent<RectTransform>().anchoredPosition.x < -1280 || _pool[i].GetComponent<RectTransform>().anchoredPosition.x > 1280)
             {
                 Destroy(_pool[i]);
                 _pool.RemoveAt(i);
