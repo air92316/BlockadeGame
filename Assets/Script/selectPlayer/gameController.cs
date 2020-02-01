@@ -57,7 +57,7 @@ public class gameController : MonoBehaviour
         //}
 
         //p1
-        if (game_manager.p1_selected)
+        if (game_manager.selected[0])
         {
             
             //countDown = 10;
@@ -81,7 +81,7 @@ public class gameController : MonoBehaviour
 
 
         //p2
-        if (game_manager.p2_selected)
+        if (game_manager.selected[1])
         {
 
             //countDown = 10;
@@ -105,7 +105,7 @@ public class gameController : MonoBehaviour
 
 
         //p3
-        if (game_manager.p3_selected)
+        if (game_manager.selected[2])
         {
 
             //countDown = 10;
@@ -132,31 +132,28 @@ public class gameController : MonoBehaviour
 
 
 
-        //p4
-        //if (game_manager.p4_selected)
-        //{
+		//p4
 
-        //    //countDown = 10;
-        //    if (!b_playerOK[3])
-        //    {
-        //        b_playerOK[3] = true;
-        //        timeComedown = 10;
-        //        //StartCoroutine(count_down());
+		if (game_manager.selected[3]) {
 
-        //    }
+			//countDown = 10;
+			if (!b_playerOK[3]) {
+				b_playerOK[3] = true;
+				timeComedown = 10;
+				//StartCoroutine(count_down());
 
-        //}
-        //else
-        //{
-        //    if (b_playerOK[3])
-        //    {
-        //        b_playerOK[3] = false;
-        //        timeComedown = 10;
-        //    }
-        //}
+			}
+
+		}
+		else {
+			if (b_playerOK[3]) {
+				b_playerOK[3] = false;
+				timeComedown = 10;
+			}
+		}
 
 
-    }
+	}
 
     IEnumerator count_down()
     {
