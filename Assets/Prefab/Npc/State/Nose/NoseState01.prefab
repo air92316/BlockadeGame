@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9208534655143422663}
   - component: {fileID: 2879515418991695752}
   m_Layer: 0
-  m_Name: NoseState04
+  m_Name: NoseState01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _portTexture:
-  - {fileID: 21300000, guid: d672dde2f148cb84797d7775019683b7, type: 3}
+  - {fileID: 21300000, guid: 92648aed9293fb0428b966fc67df4b70, type: 3}
   - {fileID: 21300000, guid: 0634768bcb0d37648a22503533694080, type: 3}
   - {fileID: 21300000, guid: b5a70e936a9fc6d49bb48715ea308436, type: 3}
   - {fileID: 21300000, guid: cfdd7f7d6285a8d4a901ba38ac487bfe, type: 3}

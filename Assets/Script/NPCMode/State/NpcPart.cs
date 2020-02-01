@@ -31,6 +31,8 @@ public class NpcPart : MonoBehaviour
                     this._nowPort = Instantiate(this._ports[_portNamber]);
                     this._nowPort.transform.SetParent(this.transform);
                     this._nowPort.transform.localScale = Vector3.one;
+                    this._nowPort.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
+
                 }
             }
         }
@@ -51,8 +53,13 @@ public class NpcPart : MonoBehaviour
 
     //Start is called before the first frame updatetur
     void Start()   {
+        //this.SetPort();
+        //PortState = Random.Range(0, _nowPort.PortStateMax);
+    }
+
+    public void SetPort()
+    {
         PortNamber = Random.Range(0, _ports.Length);
-        PortState = Random.Range(0, _nowPort.PortStateMax);
     }
 
     // Update is called once per frame
