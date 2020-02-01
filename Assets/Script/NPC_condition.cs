@@ -10,6 +10,7 @@ public class NPC_condition : MonoBehaviour
 	int condition_num;               //獲得症狀數量
 	int[] type;
 	int[] condition_ID;              //獲得症狀的ID
+	int[,] set_condition;			//症狀圖片
 
 	public bool target;              //是否為要隔離的對象
 
@@ -22,11 +23,13 @@ public class NPC_condition : MonoBehaviour
 		m_manager = manager.GetComponent<game_manager>();
 		
 		condition_num = Random.Range(0, m_manager.condition.Length);                            //每個人有0~6個症狀													
-		type = new int[condition_num];															//ID陣列長度設為獲得症狀長度
+		type = new int[condition_num];                                                          //ID陣列長度設為獲得症狀長度
+		condition_ID = new int[condition_num];
+		set_condition = new int[condition_num,2];
 
 		//設定病狀(部位)
 		for (int i = 0; i < type.Length; i++) {
-			type[i] = Random.Range(0, type.Length);
+			type[i] = Random.Range(0, m_manager.condition.Length);
 			//避免重複
 			for (int j = 0; j < i; j++) {
 				//重複就重取
@@ -39,8 +42,15 @@ public class NPC_condition : MonoBehaviour
 
 		//設定病狀(部位的種類)
 		for (int i = 0; i < type.Length; i++) {
-			condition_ID[i] = Random.Range(0, m_manager.condition[type[i]].sp.Length);          //該[部位]的[症狀]長度
+			Debug.Log("sp.Lengt = " + m_manager.condition[type[i]].sp.Length);
+			condition_ID[i] = Random.Range(0, m_manager.condition[type[i]].sp.Length)+1;          //該[部位]的[症狀]長度
+
+			set_condition[i,0] = type[i];
+			set_condition[i,1] = condition_ID[i];
+			print(set_condition[i,0] + " " + set_condition[i,1]);
 		}
+
+		GetComponent<NpcController>().SetNpc(set_condition);
 
 		//判斷病狀是否合乎題目 (因為要先讀取題目所以不寫在Start)
 		StartCoroutine(check_condition());
