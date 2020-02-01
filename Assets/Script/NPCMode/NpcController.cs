@@ -12,6 +12,9 @@ public class NpcController : MonoBehaviour
     [SerializeField] NpcPart _hairNpcPart;
     [SerializeField] NpcPart _temperatureNpcPart;
 
+    bool b_isNowTraget;
+
+    Color _totalColor = Color.white;
 
     int[,] _diseases = new int[0,2];
     public int[,] Diseases
@@ -47,6 +50,32 @@ public class NpcController : MonoBehaviour
         get { return _diseases; }
     }
 
+    public Color Color
+    {
+        set
+        {
+            _totalColor = value;
+            _bodyNpcPart.SetColor(_totalColor);
+            _faceNpcPart.SetColor(_totalColor);
+            _eyeNpcPart.SetColor(_totalColor);
+            _noseNpcPart.SetColor(_totalColor);
+            _lipsNpcPart.SetColor(_totalColor);
+            _hairNpcPart.SetColor(_totalColor);
+            _temperatureNpcPart.SetColor(_totalColor);
+        }
+        get { return _totalColor; }
+    }
+
+    public bool isNowTraget
+    {
+        set
+        {
+            b_isNowTraget = value;
+            _temperatureNpcPart.SetActive(isNowTraget);
+        }
+        get { return b_isNowTraget; }
+    }
+
     public void SetNpc(int[,] v_diseases)
     {
         _bodyNpcPart.SetPort();
@@ -62,8 +91,10 @@ public class NpcController : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()   {
-		//new int[2][] i =  { { 0, 0 },{ 1, 0 } };
-		//this.SetNpc(new int[2][] { { 0, 0 },{ 1, 0 } });
+
+        //this.SetNpc(new int[2,2] { { 0, 0 },{ 1, 0 } });
+        //isNowTraget = true;
+        //Color = Color.blue;
     }
-	
+
 }
