@@ -80,8 +80,8 @@ MonoBehaviour:
   _portTexture:
   - {fileID: 21300000, guid: 92648aed9293fb0428b966fc67df4b70, type: 3}
   - {fileID: 21300000, guid: b5a70e936a9fc6d49bb48715ea308436, type: 3}
-  - {fileID: 21300000, guid: 0634768bcb0d37648a22503533694080, type: 3}
   - {fileID: 21300000, guid: cfdd7f7d6285a8d4a901ba38ac487bfe, type: 3}
+  - {fileID: 21300000, guid: 0634768bcb0d37648a22503533694080, type: 3}
 --- !u!222 &5017680499016828556
 CanvasRenderer:
   m_ObjectHideFlags: 0
