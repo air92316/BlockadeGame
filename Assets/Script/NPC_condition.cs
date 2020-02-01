@@ -11,10 +11,14 @@ public class NPC_condition : MonoBehaviour
 	int[] condition_ID;              //獲得症狀的ID
 	public Sprite[] condition;       //NPC的症狀(採疊圖)
 
-	public bool target;				 //是否為要隔離的對象
+	public bool target;              //是否為要隔離的對象
+	public bool current;             //是否為當前偵測的對象
+
+	public bool moving;				 //是否在進行移動動畫
 
 	void Start() {
 		target = false;
+		current = false;
 
 		manager = GameObject.Find("game_manager");
 		m_manager = manager.GetComponent<game_manager>();

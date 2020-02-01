@@ -74,13 +74,13 @@ public class selectInput : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.A))
         {
-            GloData.p1_selected = true;
+			game_manager.p1_selected = true;
             Child1.SetActive(true);
         }
 
         if (Input.GetKey(KeyCode.S))
         {
-            GloData.p1_selected = false;
+			game_manager.p1_selected = false;
             Child1.SetActive(false);
 
 
@@ -91,13 +91,13 @@ public class selectInput : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.V))
         {
-            GloData.p2_selected = true;
+			game_manager.p2_selected = true;
             Child2.SetActive(true);
         }
 
         if (Input.GetKey(KeyCode.B))
         {
-            GloData.p2_selected = false;
+			game_manager.p2_selected = false;
             Child2.SetActive(false);
 
 
@@ -108,13 +108,13 @@ public class selectInput : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.K))
         {
-            GloData.p3_selected = true;
+			game_manager.p3_selected = true;
             Child3.SetActive(true);
         }
 
         if (Input.GetKey(KeyCode.L))
         {
-            GloData.p3_selected = false;
+			game_manager.p3_selected = false;
             Child3.SetActive(false);
 
         }
@@ -125,14 +125,14 @@ public class selectInput : MonoBehaviour
 
         if (Input.GetKey(KeyCode.RightBracket))
         {
-            GloData.p4_selected = true;
+			game_manager.p4_selected = true;
             Child4.SetActive(true);
             Debug.Log("[");
         }
 
         if (Input.GetKey(KeyCode.LeftBracket))
         {
-            GloData.p4_selected = false;
+			game_manager.p4_selected = false;
             Child4.SetActive(false);
             Debug.Log("[");
 

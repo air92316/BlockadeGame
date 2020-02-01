@@ -7,7 +7,10 @@ using UnityEngine.UI;
 public class target : MonoBehaviour
 {
 	GameObject manager;								//用來抓題目
-	game_manager m_manager;							//縮短程式碼用
+	game_manager m_manager;                         //縮短程式碼用
+
+	public GameObject condition_icon;               //新增病狀Image
+	public bool tital;								//是否用在開頭倒數 (是的話放動畫)
 
     void Start()
     {
@@ -26,14 +29,30 @@ public class target : MonoBehaviour
 			StartCoroutine(get_condition());
 
 		else {
-			//新增病狀圖案
-			for (int i = 0; i < m_manager.ID.Length; i++) {
-				//(抓第幾個格子)(抓放在格子中間的圖片)顯示該症狀ID的Sprite
-				Image block = transform.GetChild(i).gameObject.transform.GetChild(0).gameObject.GetComponent<Image>();
-				block.sprite = m_manager.condition[m_manager.ID[i]];                //改圖片
-				block.enabled = true;                                               //顯示圖片
-				block.preserveAspect = true;                                        //讓圖片符合比例
+			//如果是標題動畫
+			if (tital == true) {
+				//StartCoroutine(Icon_Ani());
+			}
+			else {
+				//新增病狀圖案
+				for (int i = 0; i < m_manager.ID.Length; i++) {
+					//新增一個病狀Image
+					GameObject add = Instantiate(condition_icon, transform);
+					add.GetComponent<Image>().sprite = m_manager.condition[m_manager.ID[i]];
+				}
 			}
 		}
 	}
+
+	//逐一播放
+	//IEnumerator Icon_Ani() {
+	//	//新增一個病狀Image
+	//	GameObject add = Instantiate(condition_icon, transform);
+	//	for (int i = 0; i < m_manager.ID.Length; i++) {
+	//		add.GetComponent<Image>().sprite = m_manager.condition[m_manager.ID[i]];
+	//		//播放動畫
+	//		add.GetComponent<Animator>().Play("icon");
+	//		yield return new WaitForSeconds(add.GetComponent<Animator>().)
+	//	}
+	//}
 }
