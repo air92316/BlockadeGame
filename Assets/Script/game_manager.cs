@@ -16,7 +16,9 @@ public class game_manager : MonoBehaviour
 	public int[] ID;									//該關題目的病狀編號
 	static int stage = 1;								//第幾關
 
-	public static int[] score = { 0, 0, 0, 0 };			//每個玩家的分數
+	public static int[] score = { 0, 0, 0, 0 };         //每個玩家的分數
+
+	public static bool p1_selected, p2_selected, p3_selected, p4_selected;
 
 	void Start() {
 		gaming = false;									//先倒數所以入場景為非遊戲狀態
