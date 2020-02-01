@@ -18,6 +18,9 @@ public class gameController : MonoBehaviour
     /// UI 
     /// </summary>
     public GameObject panel_Loading;
+
+
+    public scene_Status scene_Status;
     // Start is called before the first frame update
     void Start()
     {

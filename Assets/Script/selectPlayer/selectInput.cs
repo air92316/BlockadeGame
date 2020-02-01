@@ -13,6 +13,8 @@ public class selectInput : MonoBehaviour
     public GameObject p1serach, p2serach, p3serach, p4serach;//serach
     public GameObject Child1, Child2, Child3, Child4;
 
+    public GameObject Child1_Image, Child2_Image, Child3_Image, Child4_Image;//玩家剪影
+
     private bool p1_selected, p2_selected, p3_selected, p4_selected;
 
     //public scene_Status scene_Status;
@@ -88,6 +90,7 @@ public class selectInput : MonoBehaviour
             _isEntryLoading[0] = false;
             p1.gameObject.GetComponent<SpriteRenderer>().sprite = sprite_joined;//sprite_cancelJoined
             p1Check.gameObject.GetComponent<SpriteRenderer>().sprite = sprite_btn_press;//p1Check
+            p1serach.SetActive(false);
             //Debug.Log("Player01_OK");
         }
 
@@ -96,6 +99,7 @@ public class selectInput : MonoBehaviour
             game_manager.p1_selected = false;
             _isEntryLoading[0] = true;
             Child1.SetActive(true);
+            p1serach.SetActive(true);
             p1.gameObject.GetComponent<SpriteRenderer>().sprite = sprite_cancelJoined;
             p1Check.gameObject.GetComponent<SpriteRenderer>().sprite = sprite_btn;//p1Check
             //Debug.Log("Player01_Cancel");
@@ -108,6 +112,7 @@ public class selectInput : MonoBehaviour
         {
 			game_manager.p2_selected = true;
             _isEntryLoading[1] = false;
+            p2serach.SetActive(false);
             Child2.SetActive(false);
             p2.gameObject.GetComponent<SpriteRenderer>().sprite = sprite_joined;//sprite_cancelJoined
             p2Check.gameObject.GetComponent<SpriteRenderer>().sprite = sprite_btn_press;//p1Check
@@ -117,6 +122,7 @@ public class selectInput : MonoBehaviour
         if (Input.GetButtonDown("Player02_Cancel"))
         {
 			game_manager.p2_selected = false;
+            p2serach.SetActive(true);
             _isEntryLoading[1] = true;
             Child2.SetActive(true);
             Debug.Log("Player02_Cancel");
@@ -132,6 +138,7 @@ public class selectInput : MonoBehaviour
             _isEntryLoading[2] = false;
             game_manager.p3_selected = true;
             Child3.SetActive(false);
+            p3serach.SetActive(false);
             p3.gameObject.GetComponent<SpriteRenderer>().sprite = sprite_joined;//sprite_cancelJoined
             p3Check.gameObject.GetComponent<SpriteRenderer>().sprite = sprite_btn_press;//p1Check
             Debug.Log("Player03_OK");
@@ -141,6 +148,7 @@ public class selectInput : MonoBehaviour
         {
             _isEntryLoading[1] = true;
             game_manager.p3_selected = false;
+            p3serach.SetActive(true);
             Child3.SetActive(true);
             p3.gameObject.GetComponent<SpriteRenderer>().sprite = sprite_cancelJoined;
             p3Check.gameObject.GetComponent<SpriteRenderer>().sprite = sprite_btn;//p1Check
@@ -156,6 +164,7 @@ public class selectInput : MonoBehaviour
             _isEntryLoading[2] = false;
             game_manager.p4_selected = true;
             Child4.SetActive(false);
+            p4serach.SetActive(false);
             p4.gameObject.GetComponent<SpriteRenderer>().sprite = sprite_joined;//sprite_cancelJoined
             p4Check.gameObject.GetComponent<SpriteRenderer>().sprite = sprite_btn_press;//p1Check
             Debug.Log("Player04_OK");
@@ -168,6 +177,7 @@ public class selectInput : MonoBehaviour
             p4.gameObject.GetComponent<SpriteRenderer>().sprite = sprite_cancelJoined;
             p4Check.gameObject.GetComponent<SpriteRenderer>().sprite = sprite_btn;//p1Check
             Child4.SetActive(true);
+            p4serach.SetActive(true);
             Debug.Log("Player04_Cancel");
         }
     }
