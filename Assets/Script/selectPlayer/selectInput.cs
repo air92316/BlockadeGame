@@ -27,10 +27,16 @@ public class selectInput : MonoBehaviour
 
     public Text time_UI;
 
+    //private bool _isEntryLoading[] = new bool { false, false, false, false };//是否進入Loading的旗標
+    bool[] _isEntryLoading = new bool[5];
+
     // Start is called before the first frame update
     void Start()
     {
-
+        _isEntryLoading[0] = false;
+        _isEntryLoading[1] = false;
+        _isEntryLoading[2] = false;
+        _isEntryLoading[3] = false;
         //scene_Status = scene_Status.waitting;
         Child1.SetActive(false);
         Child2.SetActive(false);
@@ -78,7 +84,8 @@ public class selectInput : MonoBehaviour
         if (Input.GetButtonDown("Player01_OK"))
         {
             game_manager.p1_selected = true;
-            Child1.SetActive(true);
+            Child1.SetActive(false);
+            _isEntryLoading[0] = false;
             p1.gameObject.GetComponent<SpriteRenderer>().sprite = sprite_joined;//sprite_cancelJoined
             p1Check.gameObject.GetComponent<SpriteRenderer>().sprite = sprite_btn_press;//p1Check
             //Debug.Log("Player01_OK");
@@ -87,7 +94,8 @@ public class selectInput : MonoBehaviour
         if (Input.GetButtonDown("Player01_Cancel"))
         {
             game_manager.p1_selected = false;
-            Child1.SetActive(false);
+            _isEntryLoading[0] = true;
+            Child1.SetActive(true);
             p1.gameObject.GetComponent<SpriteRenderer>().sprite = sprite_cancelJoined;
             p1Check.gameObject.GetComponent<SpriteRenderer>().sprite = sprite_btn;//p1Check
             //Debug.Log("Player01_Cancel");
@@ -99,7 +107,8 @@ public class selectInput : MonoBehaviour
         if (Input.GetButtonDown("Player02_OK"))
         {
 			game_manager.p2_selected = true;
-            Child2.SetActive(true);
+            _isEntryLoading[1] = false;
+            Child2.SetActive(false);
             p2.gameObject.GetComponent<SpriteRenderer>().sprite = sprite_joined;//sprite_cancelJoined
             p2Check.gameObject.GetComponent<SpriteRenderer>().sprite = sprite_btn_press;//p1Check
             Debug.Log("Player02_OK");
@@ -108,7 +117,8 @@ public class selectInput : MonoBehaviour
         if (Input.GetButtonDown("Player02_Cancel"))
         {
 			game_manager.p2_selected = false;
-            Child2.SetActive(false);
+            _isEntryLoading[1] = true;
+            Child2.SetActive(true);
             Debug.Log("Player02_Cancel");
             p2.gameObject.GetComponent<SpriteRenderer>().sprite = sprite_cancelJoined;
             p2Check.gameObject.GetComponent<SpriteRenderer>().sprite = sprite_btn;//p1Check
@@ -119,8 +129,9 @@ public class selectInput : MonoBehaviour
     {
         if (Input.GetButtonDown("Player03_OK"))
         {
+            _isEntryLoading[2] = false;
             game_manager.p3_selected = true;
-            Child3.SetActive(true);
+            Child3.SetActive(false);
             p3.gameObject.GetComponent<SpriteRenderer>().sprite = sprite_joined;//sprite_cancelJoined
             p3Check.gameObject.GetComponent<SpriteRenderer>().sprite = sprite_btn_press;//p1Check
             Debug.Log("Player03_OK");
@@ -128,8 +139,9 @@ public class selectInput : MonoBehaviour
 
         if (Input.GetButtonDown("Player03_Cancel"))
         {
-			game_manager.p3_selected = false;
-            Child3.SetActive(false);
+            _isEntryLoading[1] = true;
+            game_manager.p3_selected = false;
+            Child3.SetActive(true);
             p3.gameObject.GetComponent<SpriteRenderer>().sprite = sprite_cancelJoined;
             p3Check.gameObject.GetComponent<SpriteRenderer>().sprite = sprite_btn;//p1Check
             Debug.Log("Player03_Cancel");
@@ -141,8 +153,9 @@ public class selectInput : MonoBehaviour
 
         if (Input.GetButtonDown("Player04_OK"))
         {
-			game_manager.p4_selected = true;
-            Child4.SetActive(true);
+            _isEntryLoading[2] = false;
+            game_manager.p4_selected = true;
+            Child4.SetActive(false);
             p4.gameObject.GetComponent<SpriteRenderer>().sprite = sprite_joined;//sprite_cancelJoined
             p4Check.gameObject.GetComponent<SpriteRenderer>().sprite = sprite_btn_press;//p1Check
             Debug.Log("Player04_OK");
@@ -150,10 +163,11 @@ public class selectInput : MonoBehaviour
 
         if (Input.GetButtonDown("Player04_Cancel"))
         {
-			game_manager.p4_selected = false;
+            _isEntryLoading[2] = true;
+            game_manager.p4_selected = false;
             p4.gameObject.GetComponent<SpriteRenderer>().sprite = sprite_cancelJoined;
             p4Check.gameObject.GetComponent<SpriteRenderer>().sprite = sprite_btn;//p1Check
-            Child4.SetActive(false);
+            Child4.SetActive(true);
             Debug.Log("Player04_Cancel");
         }
     }
