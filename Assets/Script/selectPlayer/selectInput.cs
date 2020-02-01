@@ -65,69 +65,70 @@ public class selectInput : MonoBehaviour
 
     void p1_input()
     {
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetButtonDown("Player01_OK"))
         {
             game_manager.p1_selected = true;
             Child1.SetActive(true);
+            Debug.Log("Player01_OK");
         }
 
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetButtonDown("Player01_Cancel"))
         {
             game_manager.p1_selected = false;
             Child1.SetActive(false);
-
-
+            Debug.Log("Player01_Cancel");
         }
     }
 
     void p2_input()
     {
-        if (Input.GetKey(KeyCode.V))
+        if (Input.GetButtonDown("Player02_OK"))
         {
-
 			game_manager.p2_selected = true;
             Child2.SetActive(true);
+            Debug.Log("Player02_OK");
         }
 
-        if (Input.GetKey(KeyCode.B))
+        if (Input.GetButtonDown("Player02_OK"))
         {
 			game_manager.p2_selected = false;
             Child2.SetActive(false);
+            Debug.Log("Player02_Cancel");
         }
     }
 
     void p3_input()
     {
-        if (Input.GetKey(KeyCode.K))
+        if (Input.GetButtonDown("Player03_OK"))
         {
             game_manager.p3_selected = true;
             Child3.SetActive(true);
+            Debug.Log("Player03_OK");
         }
 
-        if (Input.GetKey(KeyCode.L))
+        if (Input.GetButtonDown("Player03_Cancel"))
         {
 			game_manager.p3_selected = false;
             Child3.SetActive(false);
-
+            Debug.Log("Player03_Cancel");
         }
     }
 
     void p4_input()
     {
 
-        if (Input.GetKey(KeyCode.RightBracket))
+        if (Input.GetButtonDown("Player04_OK"))
         {
 			game_manager.p4_selected = true;
             Child4.SetActive(true);
-            Debug.Log("[");
+            Debug.Log("Player04_OK");
         }
 
-        if (Input.GetKey(KeyCode.LeftBracket))
+        if (Input.GetButtonDown("Player04_Cancel"))
         {
 			game_manager.p4_selected = false;
             Child4.SetActive(false);
-            Debug.Log("[");
-
+            Debug.Log("Player04_Cancel");
         }
     }
 }
