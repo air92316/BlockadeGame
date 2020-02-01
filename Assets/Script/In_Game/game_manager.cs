@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,12 +24,12 @@ public class game_manager : MonoBehaviour
 	public Condition[] condition;                       //病狀圖案 [部位] [該部位有的症狀數量]
 	public int[] type;									//病狀種類
 	public int[] ID;									//該關題目的病狀編號
-	public static int stage = 1;                        //第幾關
+	public static int stage = 0;                        //第幾關
 
 	public float game_time_limit = 20;					//剩餘時間
 	public GameObject Settle_canvas;					//結算的Canvas
 
-	public static int[,] score = { { 12, 0, 0, 0 },
+	public static int[,] score = { { 0, 0, 0, 0 },
 								   { 0, 0, 0, 0 },
 								   { 0, 0, 0, 0 } };         //每個玩家的分數 [關卡 , 分數]
 
@@ -90,7 +91,17 @@ public class game_manager : MonoBehaviour
 		if (game_time_limit <= 0) {
 			Settle_canvas.SetActive (true);			//黑色的背景
 			gaming = false;							//禁止玩家繼續遊戲
-			settle = true;							//用來播結算動畫
+			settle = true;                          //用來播結算動畫
+			stage += 1;
+
+			if (stage == 3) {
+				for(int i = 0; i < 4; i++) {
+					gameCommon.scoreR1[i] = score[0,i];
+					gameCommon.scoreR2[i] = score[1,i];
+					gameCommon.scoreR3[i] = score[2,i];
+					EditorSceneManager.LoadScene("Score");
+				}
+			}
 		}
 		else {
 			StartCoroutine(game_time_count());

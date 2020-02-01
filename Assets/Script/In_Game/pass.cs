@@ -18,8 +18,6 @@ public class pass : MonoBehaviour
 
 	public int sort_layer;		                //最頂層NPC的圖層
 
-	bool created;						        //新NPC已生成(避免重複生成)
-
 	public GameObject NPC;                      //用來新增NPC物件
 	public GameObject place;                    //NPC的位置 (前方)
 	public GameObject next_place;				//用來放新的NPC (後方) (排序用)
@@ -28,7 +26,6 @@ public class pass : MonoBehaviour
 
     void Start()
     {
-		created = false;
 		show_on_game.SetActive(false);                                                          //遊戲還沒開始時先隱藏的物件
 
 		manager = GameObject.Find("game_manager");
@@ -53,7 +50,7 @@ public class pass : MonoBehaviour
 				if (Input.GetButtonDown(player_button + "OK")) {
 					//如果目標是需要隔離的 (案入境所以這個是答錯)
 					if (target.GetComponent<NPC_condition>().target == true) {
-						game_manager.score[game_manager.stage,player_num-1] -= 3;				//扣3分
+						game_manager.score[game_manager.stage,player_num-1] -= 1;				//扣3分
 					}
 					else {
 						game_manager.score[game_manager.stage, player_num - 1] += 1;            //加1分
@@ -73,7 +70,7 @@ public class pass : MonoBehaviour
 						game_manager.score[game_manager.stage, player_num - 1] += 1;            //加1分
 					}
 					else {
-						game_manager.score[game_manager.stage, player_num - 1] -= 3;            //扣3分
+						game_manager.score[game_manager.stage, player_num - 1] -= 1;            //扣3分
 					}
 
 					//如果分數小於零讓他等於零

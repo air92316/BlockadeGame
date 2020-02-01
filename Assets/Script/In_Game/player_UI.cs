@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,13 +10,22 @@ public class player_UI : MonoBehaviour
 	GameObject manager;                         //用來抓遊戲控制
 	game_manager m_manager;                     //縮短程式碼用
 
-	public GameObject Score;							//分數
-	public Image time_bar;                              //時間條
+	public GameObject Score;								//分數
+	public Image time_bar;									//時間條
 
+	Score_num score_data;									//抓分數的資料 (簡化程式用)
+	bool have_play;											//已經撥放結算動畫了
+
+	int now_stage;											//因為遊戲結束關卡就會先+1，所以開場抓避免出錯
+	
 	void Start()
     {
+		have_play = false;
 		manager = GameObject.Find("game_manager");
 		m_manager = manager.GetComponent<game_manager>();
+		score_data = Score.GetComponent<Score_num>();
+
+		now_stage = game_manager.stage;						//開始的時候就先抓現在的關卡
 	}
 	
     void Update()
@@ -26,7 +36,23 @@ public class player_UI : MonoBehaviour
 		}
 		//如果是結算畫面就開啟Score動畫
 		else if (m_manager.settle) {
-			StartCoroutine( Score.GetComponent<Score_num>().Settle());
+			//只會播一次
+			if(have_play==false)
+				StartCoroutine(Settle());
 		}
     }
+
+	//結算
+	public IEnumerator Settle() {
+		have_play = true;										//避免重覆播放
+		Score.GetComponent<Animator>().Play("score_down");      //播放下降動畫
+
+		yield return new WaitForSeconds(4f);													//讓分數顯示停頓幾秒
+		score_data.score = game_manager.score[game_manager.stage, score_data.player_ID];        //顯示新的分數 (歸零)
+		Score.GetComponent<Animator>().Play("score_up");										//播放上升動畫
+
+		yield return new WaitForSeconds(1f);													//停頓幾秒
+		EditorSceneManager.LoadScene("Game");													//重新載入場景
+
+	}
 }
