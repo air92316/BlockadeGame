@@ -45,6 +45,15 @@ public class selectInput : MonoBehaviour
         
         //if(Child1.active && Child2.active && Child3.active && Child4.active)
         //    enter();
+
+
+
+        
+
+
+
+
+
     }
  
 
@@ -80,7 +89,7 @@ public class selectInput : MonoBehaviour
             Debug.Log("Player02_OK");
         }
 
-        if (Input.GetButtonDown("Player02_Cancel"))
+        if (Input.GetButtonDown("Player02_OK"))
         {
 			game_manager.p2_selected = false;
             Child2.SetActive(false);
