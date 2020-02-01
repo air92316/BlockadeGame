@@ -12,24 +12,37 @@ public class Score_num : MonoBehaviour
 	public int player_ID;               //獲得玩家編號
 	public Sprite[] num;                //數字圖片
 	public int score;                   //紀錄分數
-	public int score_sum;				//加總的分數
+	public int score_sum;               //加總的分數
+
+	public Animator getShowAnimator;
 
 	public bool adding = false;         //數字累加(結算動畫用)
 
 	int now_stage;                                          //因為遊戲結束關卡就會先+1，所以開場抓避免出錯
 
+	int nowScore;						//用來記錄目前分數
 	void Start()
     {
 		adding = false;
 		player_ID = transform.GetComponentInParent<pass>().player_num - 1;          //玩家編號是1~4，這裡要-1
 
 		now_stage = game_manager.stage;                     //開始的時候就先抓現在的關卡
+
+		nowScore = game_manager.score[now_stage, player_ID];
 	}
 	
     void Update()
     {
 		score = game_manager.score[now_stage, player_ID];
+		if(nowScore < score) {
+			getShowAnimator.Play("Add");
+		}
+		if (nowScore > score)
+		{
+			getShowAnimator.Play("Down");
+		}
 
+		nowScore = score;
 		//因為圖片剛好對應0~9所以直接抓該位數就好
 		ten.sprite = num[score / 10];
 		digit.sprite = num[score % 10];
