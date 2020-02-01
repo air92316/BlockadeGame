@@ -383,6 +383,7 @@ MonoBehaviour:
   place: {fileID: 1495005007221043637}
   next_place: {fileID: 1495005007134943565}
   show_on_game: {fileID: 1495005007222619600}
+  block: {fileID: 8004781720343001252}
 --- !u!114 &1495005008151923927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -573,6 +574,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 50e8568a7a4f47f40838d12c8d003f0a, type: 3}
+--- !u!1 &8004781720343001252 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8910901493736910127, guid: 50e8568a7a4f47f40838d12c8d003f0a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1495005007126861195}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &8004781719876329233 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8910901493272332954, guid: 50e8568a7a4f47f40838d12c8d003f0a,

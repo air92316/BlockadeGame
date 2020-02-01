@@ -6,17 +6,19 @@ using UnityEngine.UI;
 
 public class NPC_condition : MonoBehaviour
 {
-	GameObject manager;              //用來抓題目
-	game_manager m_manager;          //縮短程式碼用
-	int condition_num;               //獲得症狀數量
+	GameObject manager;						//用來抓題目
+	game_manager m_manager;					//縮短程式碼用
+	int condition_num;						//獲得症狀數量
 	public int[] type;						 //症狀部位
 	public int[] condition_ID;              //該部位的症狀ID
-	int[,] set_condition;			//症狀圖片
+	int[,] set_condition;					//症狀圖片
 
-	public bool target;              //是否為要隔離的對象
+	public bool target;						//是否為要隔離的對象
 
-	public bool moving;              //是否在進行移動動畫
-	public bool to_delete;			 //出境隔離動畫之後被刪掉
+	public bool moving;						//是否在進行移動動畫
+	public bool to_delete;					//出境隔離動畫之後被刪掉
+
+	public List<int> same_block;			//擁有症狀的題目格子(ID)
 
 	public Color color;
 	public bool temp_on;
@@ -54,8 +56,10 @@ public class NPC_condition : MonoBehaviour
 		}
 
 		GetComponent<NpcController>().SetNpc(set_condition);
+	}
 
-		//判斷病狀是否合乎題目 (因為要先讀取題目所以不寫在Start)
+	private void OnEnable() {
+		//判斷病狀是否合乎題目 (因為要先讀取題目 + 開場是隱藏的所以不寫在Start)
 		StartCoroutine(check_condition());
 	}
 
@@ -107,25 +111,19 @@ public class NPC_condition : MonoBehaviour
 			//一個條件符合就算過的場合
 			//用人物有的症狀下去跑
 			for (int i = 0; i < type.Length; i++) {
-				check = false;                      //每次檢查前要先把檢查設定為未通過
-
 				for (int j = 0; j < m_manager.type.Length; j++) {
 					if (type[i] == m_manager.type[j]) {
 						//這個部位的病徵符合
 						if (m_manager.ID[j] == condition_ID[i]) {
 							check = true;               //這個症狀檢查為真
+							same_block.Add(j);			//把符合的這格加進去
 							break;                      //跳出檢查
 						}
 					}
 				}
-
-				//如果一個部位符合就跳出檢查
-				if (check == true) {
-					break;
-				}
 			}
 
-			//全部檢查完之後檢查為真表示每項都通過了
+			//檢查為真表示通過了 (需要被隔離)
 			if (check == true) {
 				target = true;				//這個NPC是要被隔離的
 			}

@@ -18,18 +18,16 @@ public class Score_num : MonoBehaviour
 
 	public AudioSource audio_OK;
 	public AudioSource auido_NO;
+	
 
-	public bool adding = false;         //數字累加(結算動畫用)
-
-	int now_stage;                                          //因為遊戲結束關卡就會先+1，所以開場抓避免出錯
+	int now_stage;                       //因為遊戲結束關卡就會先+1，所以開場抓避免出錯
 
 	int nowScore;						//用來記錄目前分數
 	void Start()
     {
-		adding = false;
 		player_ID = transform.GetComponentInParent<pass>().player_num - 1;          //玩家編號是1~4，這裡要-1
 
-		now_stage = game_manager.stage;                     //開始的時候就先抓現在的關卡
+		now_stage = game_manager.stage;												//開始的時候就先抓現在的關卡
 
 		nowScore = game_manager.score[now_stage, player_ID];
 	}
