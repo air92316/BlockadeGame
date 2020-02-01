@@ -12,15 +12,15 @@ public class target : MonoBehaviour
 	public GameObject condition_icon;               //新增病狀Image
 	public bool tital;								//是否用在開頭倒數 (是的話放動畫)
 
-    void Start()
-    {
+	//因為開場玩家的是隱藏的
+	private void OnEnable() {
 		manager = GameObject.Find("game_manager");
 		m_manager = manager.GetComponent<game_manager>();
 		StartCoroutine(get_condition());
-    }
+	}
 
 	//要先等題目出來才能上圖片，所以要有小延遲
-	IEnumerator get_condition() {
+	public IEnumerator get_condition() {
 
 		yield return new WaitForSeconds(0.001f);
 

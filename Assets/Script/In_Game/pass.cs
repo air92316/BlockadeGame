@@ -29,7 +29,7 @@ public class pass : MonoBehaviour
     void Start()
     {
 		created = false;
-		//show_on_game.SetActive(false);                                                          //遊戲還沒開始時先隱藏的物件
+		show_on_game.SetActive(false);                                                          //遊戲還沒開始時先隱藏的物件
 
 		manager = GameObject.Find("game_manager");
 		m_manager = manager.GetComponent<game_manager>();
@@ -49,35 +49,42 @@ public class pass : MonoBehaviour
 			//不是移動中才繼續遊戲
 			if (next_target.GetComponent<NPC_condition>().moving == false) {
 
-				//按下該玩家指定的通關鍵
+				//按下該玩家指定的入關鍵
 				if (Input.GetButtonDown(player_button + "OK")) {
-					//如果目標是正確
+					//如果目標是需要隔離的 (案入境所以這個是答錯)
 					if (target.GetComponent<NPC_condition>().target == true) {
-						game_manager.score[player_num] += 1;            //加1分
+						game_manager.score[game_manager.stage,player_num-1] -= 3;				//扣3分
 					}
 					else {
-						game_manager.score[player_num] -= 1;            //扣1分
+						game_manager.score[game_manager.stage, player_num - 1] += 1;            //加1分
 					}
-					
-					//播放入境動畫+後面的人往前動畫
-					StartCoroutine(Pass_ani(target,next_target));
-					next_target.GetComponent<NpcController>().isNowTraget = true;               //變成新目標之後打開溫度計
-					next_target.GetComponent<NpcController>().Color = Color.white;
+
+					//如果分數小於零讓他等於零
+					if (game_manager.score[game_manager.stage, player_num - 1] < 0)
+						game_manager.score[game_manager.stage, player_num - 1] = 0;
+
+					//播放入境動畫+後面的人往前動畫 (因為按下指定案件才會執行的所以兩邊都要寫)
+					StartCoroutine(Pass_ani(target));
 					next_target.GetComponent<Animator>().Play("move_next", next_target.GetComponent<Animator>().GetLayerIndex("move"));
 				}
 				else if (Input.GetButtonDown(player_button + "Cancel")) {
-					//如果目標是正確
+					//如果目標是需要隔離的 (案隔離所以這個是答對)
 					if (target.GetComponent<NPC_condition>().target == true) {
-						game_manager.score[player_num] -= 1;            //扣1分
+						game_manager.score[game_manager.stage, player_num - 1] += 1;            //加1分
 					}
 					else {
-						game_manager.score[player_num] += 1;            //扣1分
+						game_manager.score[game_manager.stage, player_num - 1] -= 3;            //扣3分
 					}
-					StartCoroutine(Leave_ani(target,next_target));
+
+					//如果分數小於零讓他等於零
+					if (game_manager.score[game_manager.stage, player_num - 1] < 0)
+						game_manager.score[game_manager.stage, player_num - 1] = 0;
+
+					//播放入境動畫+後面的人往前動畫
+					StartCoroutine(Leave_ani(target));
 					next_target.GetComponent<Animator>().Play("move_next", next_target.GetComponent<Animator>().GetLayerIndex("move"));
 				}
 			}
-
 		}
 	}
 	
@@ -90,18 +97,16 @@ public class pass : MonoBehaviour
 	}
 
 	//入境動畫(用get_target避免當前目標先被取代)
-	IEnumerator Pass_ani(GameObject get_target, GameObject get_next) {
+	IEnumerator Pass_ani(GameObject get_target) {
 		get_target.GetComponent<Animator>().Play("go_in", next_target.GetComponent<Animator>().GetLayerIndex("move"));
 		yield return new WaitForSeconds(0.3f);
-		Destroy(get_target.gameObject);
 		New_NPC();
 	}
 
 	//隔離動畫(用get_target避免當前目標先被取代)
-	IEnumerator Leave_ani(GameObject get_target , GameObject get_next) {
+	IEnumerator Leave_ani(GameObject get_target ) {
 		get_target.GetComponent<Animator>().Play("leave", next_target.GetComponent<Animator>().GetLayerIndex("move"));
 		yield return new WaitForSeconds(0.3f);
-		Destroy(get_target.gameObject);
 		New_NPC();								//移動完才產生新NPC (避免圖層跑掉)
 	}
 }
