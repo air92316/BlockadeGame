@@ -14,7 +14,10 @@ public class NPC_condition : MonoBehaviour
 
 	public bool target;              //是否為要隔離的對象
 
-	public bool moving;				 //是否在進行移動動畫
+	public bool moving;              //是否在進行移動動畫
+
+	public Color color;
+	public bool temp_on;
 
 	void Start() {
 		target = false;
@@ -46,13 +49,17 @@ public class NPC_condition : MonoBehaviour
 
 			set_condition[i,0] = type[i];
 			set_condition[i,1] = condition_ID[i];
-			print(set_condition[i,0] + " " + set_condition[i,1]);
 		}
 
 		GetComponent<NpcController>().SetNpc(set_condition);
 
 		//判斷病狀是否合乎題目 (因為要先讀取題目所以不寫在Start)
 		StartCoroutine(check_condition());
+	}
+
+	private void Update() {
+		transform.GetComponent<NpcController>().Color = color;
+		transform.GetComponent<NpcController>().isNowTraget = temp_on;
 	}
 
 	//要先等題目出來才能判斷，所以要有小延遲

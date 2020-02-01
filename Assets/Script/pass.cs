@@ -20,15 +20,16 @@ public class pass : MonoBehaviour
 
 	bool created;						        //新NPC已生成(避免重複生成)
 
-	public GameObject NPC;                      //愈來新增NPC物件
-	public GameObject place;                    //NPC的位置
+	public GameObject NPC;                      //用來新增NPC物件
+	public GameObject place;                    //NPC的位置 (前方)
+	public GameObject next_place;				//用來放新的NPC (後方) (排序用)
 
 	public GameObject show_on_game;				//遊戲開始時才顯示的物件
 
     void Start()
     {
 		created = false;
-		show_on_game.SetActive(false);                                                          //遊戲還沒開始時先隱藏的物件
+		//show_on_game.SetActive(false);                                                          //遊戲還沒開始時先隱藏的物件
 
 		manager = GameObject.Find("game_manager");
 		m_manager = manager.GetComponent<game_manager>();
@@ -38,8 +39,7 @@ public class pass : MonoBehaviour
 		next_transform = next_target.transform.localPosition;									//設定位置
 
 	}
-
-    // Update is called once per frame
+	
     void Update()
     {
 		//遊戲中
@@ -58,10 +58,12 @@ public class pass : MonoBehaviour
 					else {
 						game_manager.score[player_num] -= 1;            //扣1分
 					}
-					//摧毀當前的NPC並往前移動
-					Destroy(target.gameObject);
+					
+					//播放入境動畫+後面的人往前動畫
+					StartCoroutine(Pass_ani(target,next_target));
+					next_target.GetComponent<NpcController>().isNowTraget = true;               //變成新目標之後打開溫度計
+					next_target.GetComponent<NpcController>().Color = Color.white;
 					next_target.GetComponent<Animator>().Play("move_next", next_target.GetComponent<Animator>().GetLayerIndex("move"));
-					created = false;
 				}
 				else if (Input.GetButtonDown(player_button + "Cancel")) {
 					//如果目標是正確
@@ -71,26 +73,35 @@ public class pass : MonoBehaviour
 					else {
 						game_manager.score[player_num] += 1;            //扣1分
 					}
-					Destroy(target.gameObject);
+					StartCoroutine(Leave_ani(target,next_target));
 					next_target.GetComponent<Animator>().Play("move_next", next_target.GetComponent<Animator>().GetLayerIndex("move"));
-					created = false;
 				}
 			}
-			else {
-				if (created == false)
-					StartCoroutine(New_NPC());
-			}
+
 		}
 	}
 	
 	//新增新的NPC
-	IEnumerator New_NPC() {
-		created = true;
-		next_target.GetComponent<Canvas>().sortingOrder = sort_layer;															//下一個目標的圖層移到最上
+	void New_NPC() {
+		next_target.transform.SetParent(place.transform);                                                                       //把新的目標拉到外面的位子 (保持在前)
 		target = next_target;                                                                                                   //更改目標(下一個換成當前)
-		yield return new WaitForSeconds(0.2f);																					//等待幾秒後再新增下一個目標
-		next_target = Instantiate(NPC, place.transform.position, new Quaternion(0f, 0f, 0f, 0f), place.transform);              //新增目標(放到該玩家的格子下)
-		next_target.GetComponent<Canvas>().sortingOrder = sort_layer - 1;														//新增的目標圖層下移一個
+		next_target = Instantiate(NPC, place.transform.position, new Quaternion(0f, 0f, 0f, 0f), next_place.transform);         //新增目標(放到該玩家的格子下)
 		next_target.transform.localScale = new Vector3(1f, 1f, 1f);																//縮小新目標
+	}
+
+	//入境動畫(用get_target避免當前目標先被取代)
+	IEnumerator Pass_ani(GameObject get_target, GameObject get_next) {
+		get_target.GetComponent<Animator>().Play("go_in", next_target.GetComponent<Animator>().GetLayerIndex("move"));
+		yield return new WaitForSeconds(0.3f);
+		Destroy(get_target.gameObject);
+		New_NPC();
+	}
+
+	//隔離動畫(用get_target避免當前目標先被取代)
+	IEnumerator Leave_ani(GameObject get_target , GameObject get_next) {
+		get_target.GetComponent<Animator>().Play("leave", next_target.GetComponent<Animator>().GetLayerIndex("move"));
+		yield return new WaitForSeconds(0.3f);
+		Destroy(get_target.gameObject);
+		New_NPC();								//移動完才產生新NPC (避免圖層跑掉)
 	}
 }

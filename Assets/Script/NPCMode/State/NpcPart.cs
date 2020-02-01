@@ -10,6 +10,7 @@ public class NpcPart : MonoBehaviour
     int _portNamber = -1;
     int _portState = -1;
     bool b_isActive = true;
+	Color _nowColor = Color.white;
 
     public int PortNamber
     {
@@ -34,7 +35,9 @@ public class NpcPart : MonoBehaviour
                     this._nowPort.transform.localScale = Vector3.one;
                     this._nowPort.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
                     this._nowPort.SetActive(b_isActive);
-                }
+					this._nowPort.SetColor(_nowColor);
+
+				}
             }
         }
         get { return _portNamber; }
@@ -65,7 +68,8 @@ public class NpcPart : MonoBehaviour
 
     public void SetColor(Color v_color)
     {
-        _nowPort.SetColor(v_color);
+		_nowColor = v_color;
+		if (_nowPort) _nowPort.SetColor(v_color);
     }
 
     public void SetActive(bool v_isActive) {

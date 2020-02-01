@@ -13,7 +13,7 @@ public class Condition
 //共用變數和遊戲的運行(介面轉換)
 public class game_manager : MonoBehaviour
 {
-	public bool gaming = false;							//遊戲開始狀態
+	public bool gaming = true;							//遊戲開始狀態
 
 	int start_count = 5;								//開始遊戲時的倒數
 	public GameObject count_canvas;						//倒數的canvas
@@ -29,7 +29,7 @@ public class game_manager : MonoBehaviour
 	public static bool p1_selected, p2_selected, p3_selected, p4_selected;
 
 	void Start() {
-		gaming = false;                                 //先倒數所以入場景為非遊戲狀態
+		//gaming = false;                                 //先倒數所以入場景為非遊戲狀態
 
 		//每關的病狀會增加
 		type = new int[stage + 1];

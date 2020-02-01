@@ -49,8 +49,8 @@ public class NpcController : MonoBehaviour
         }
         get { return _diseases; }
     }
-
-    public Color Color
+	
+	public Color Color
     {
         set
         {
