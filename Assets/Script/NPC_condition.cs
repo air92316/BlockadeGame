@@ -7,49 +7,43 @@ public class NPC_condition : MonoBehaviour
 {
 	GameObject manager;              //用來抓題目
 	game_manager m_manager;          //縮短程式碼用
-	int condition_num;				 //獲得症狀數量
+	int condition_num;               //獲得症狀數量
+	int[] type;
 	int[] condition_ID;              //獲得症狀的ID
-	public Sprite[] condition;       //NPC的症狀(採疊圖)
 
 	public bool target;              //是否為要隔離的對象
-	public bool current;             //是否為當前偵測的對象
 
 	public bool moving;				 //是否在進行移動動畫
 
 	void Start() {
 		target = false;
-		current = false;
 
 		manager = GameObject.Find("game_manager");
 		m_manager = manager.GetComponent<game_manager>();
 		
-		condition_num = Random.Range(0, 4);                             //每個人有0~3個症狀													
-		condition_ID = new int[condition_num];							//ID陣列長度設為獲得症狀長度
+		condition_num = Random.Range(0, m_manager.condition.Length);                            //每個人有0~6個症狀													
+		type = new int[condition_num];															//ID陣列長度設為獲得症狀長度
 
-		//設定病狀
-		for (int i = 0; i < condition_ID.Length; i++) {
-			condition_ID[i] = Random.Range(0, m_manager.condition.Length);
+		//設定病狀(部位)
+		for (int i = 0; i < type.Length; i++) {
+			type[i] = Random.Range(0, type.Length);
 			//避免重複
 			for (int j = 0; j < i; j++) {
 				//重複就重取
-				if (condition_ID[j] == condition_ID[i]) {
+				if (type[j] == type[i]) {
 					i--;
 					break;
 				}
 			}
 		}
 
+		//設定病狀(部位的種類)
+		for (int i = 0; i < type.Length; i++) {
+			condition_ID[i] = Random.Range(0, m_manager.condition[type[i]].sp.Length);          //該[部位]的[症狀]長度
+		}
+
 		//判斷病狀是否合乎題目 (因為要先讀取題目所以不寫在Start)
 		StartCoroutine(check_condition());
-
-		//為病狀上圖片
-		for (int i = 0; i < condition_ID.Length; i++) {
-			GameObject add = new GameObject("condition");										//新增症狀物件
-			add.transform.SetParent(transform, false);											//將症狀物件設為子物件
-			add.AddComponent<Image>();															//新增Image元件
-			add.GetComponent<Image>().sprite =condition[condition_ID[i]];                       //新增(擁有症狀ID)相應的圖片
-			add.GetComponent<Image>().SetNativeSize();										    //讓圖片符合比例(採疊圖所以用原尺寸就可以了)
-		}
 	}
 
 	//要先等題目出來才能判斷，所以要有小延遲

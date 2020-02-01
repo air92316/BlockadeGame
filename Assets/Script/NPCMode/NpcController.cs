@@ -76,7 +76,5 @@ public class NpcController : MonoBehaviour
     void Start()   {
         this.SetNpc(new int[4] { 0, 1, 2, 4 });
     }
-
-    // Update is called once per frame
-    //void Update()   {    }
+	
 }
