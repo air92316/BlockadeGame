@@ -14,16 +14,11 @@ public class SwitchScene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Player01_OK") || Input.GetButtonDown("Player02_OK")
-            || Input.GetButtonDown("Player03_OK") || Input.GetButtonDown("Player04_OK"))
-        {
-            Switch();
-        }
+     
     }
 
     public void Switch()
     {
-        Debug.Log("Jump 1");
         SceneManager.LoadScene(1);
     }
 }
