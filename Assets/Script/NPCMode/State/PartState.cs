@@ -42,6 +42,15 @@ public class PartState : MonoBehaviour
         }
     }
 
+    public void SetColor(Color v_color)
+    {
+        Image.color = v_color;
+    }
+    public void SetActive(bool v_isActive)
+    {
+        Image.enabled = v_isActive;
+    }
+
     #endregion
 
     // Start is called before the first frame updatetur
