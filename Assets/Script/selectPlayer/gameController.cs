@@ -47,7 +47,7 @@ public class gameController : MonoBehaviour
         switch(scene_Status){
             case scene_Status.Player:
                 this.CheckPlayer();
-                if (b_playerOK[0] || b_playerOK[1] || b_playerOK[2] || b_playerOK[3])
+                if (game_manager.selected[0] || game_manager.selected[1] || game_manager.selected[2] || game_manager.selected[3])
                 {
                     animatorTimePanel.SetBool("IsOpen", true);
                     timeComedown -= Time.deltaTime;

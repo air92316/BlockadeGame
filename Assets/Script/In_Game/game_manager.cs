@@ -33,7 +33,7 @@ public class game_manager : MonoBehaviour
 								   { 0, 0, 0, 0 },
 								   { 0, 0, 0, 0 } };         //每個玩家的分數 [關卡 , 分數]
 
-	public static bool[] selected= { true, true, true, true };
+	public static bool[] selected= { false, false, false, false };
 
 	void Start() {
 		gaming = false;                                     //先倒數所以入場景為非遊戲狀態
