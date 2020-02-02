@@ -25,7 +25,9 @@ public class pass : MonoBehaviour
 	public bool is_player;                      //是否為玩家
 	bool auto;                                  //是否自動遊玩中
 
-	public int npc_ID;							//紀錄NPC產生次數
+	public int npc_ID;                          //紀錄NPC產生次數
+
+	public ShowMojis emoji;						//表情動畫
 
 	void Start()
     {
@@ -61,9 +63,11 @@ public class pass : MonoBehaviour
 						if (target.GetComponent<NPC_condition>().target == true) {
 							game_manager.score[game_manager.stage, player_num - 1] -= 1;               //扣3分
 							Wrong(target);
+							emoji.ShowPassError();
 						}
 						else {
 							game_manager.score[game_manager.stage, player_num - 1] += 1;            //加1分
+							emoji.ShowPassOK();
 						}
 
 						//如果分數小於零讓他等於零
@@ -78,9 +82,11 @@ public class pass : MonoBehaviour
 						//如果目標是需要隔離的 (案隔離所以這個是答對)
 						if (target.GetComponent<NPC_condition>().target == true) {
 							game_manager.score[game_manager.stage, player_num - 1] += 1;            //加1分
+							emoji.ShowOutOK();
 						}
 						else {
 							game_manager.score[game_manager.stage, player_num - 1] -= 1;            //扣3分
+							emoji.ShowOutError();
 						}
 
 						//如果分數小於零讓他等於零
@@ -164,24 +170,26 @@ public class pass : MonoBehaviour
 
 	//自動遊玩
 	IEnumerator Auto_Play() {
-		auto = true;														//排程已執行
-		yield return new WaitForSeconds(Random.Range(0.5f, 3f));            //每個選項電腦會猶豫0.5~3秒
+		auto = true;															//排程已執行
+		yield return new WaitForSeconds(Random.Range(0.8f, 2.5f));				//每個選項電腦會猶豫0.5~2.4秒
 		if (m_manager.gaming == true) {
 			//如果現在這個是要隔離的
 			if (target.GetComponent<NPC_condition>().target == true) {
-
+				int max = Random.Range(3, 7);									//讓電腦聰明一點，會隨機[2/3]~[(3~5)/6]的機率答對
 				//2/3機率選對 (選擇隔離)
-				if (Random.Range(0, 3) < 2) {
+				if (Random.Range(0, max) < max-(Random.Range(1,max-2))) {
 					game_manager.score[game_manager.stage, player_num - 1] += 1;            //加1分
-																							//播放隔離動畫+後面的人往前動畫
+					//播放隔離動畫+後面的人往前動畫
 					StartCoroutine(Leave_ani(target));
+					emoji.ShowOutOK();
 				}
 				//錯誤
 				else {
 					game_manager.score[game_manager.stage, player_num - 1] -= 1;            //扣1分
-																							//播放入境動畫+後面的人往前動畫
+					//播放入境動畫+後面的人往前動畫
 					StartCoroutine(Pass_ani(target));
 					Wrong(target);
+					emoji.ShowPassError();
 				}
 			}
 
@@ -190,14 +198,16 @@ public class pass : MonoBehaviour
 				//2/3機率選對 (選擇入境)
 				if (Random.Range(0, 3) < 2) {
 					game_manager.score[game_manager.stage, player_num - 1] += 1;            //加1分
-																							//播放隔離動畫+後面的人往前動畫
+					//播放隔離動畫+後面的人往前動畫
 					StartCoroutine(Pass_ani(target));
+					emoji.ShowPassOK();
 				}
 				//錯誤
 				else {
 					game_manager.score[game_manager.stage, player_num - 1] -= 1;            //扣1分
-																							//播放入境動畫+後面的人往前動畫
+					//播放入境動畫+後面的人往前動畫
 					StartCoroutine(Leave_ani(target));
+					emoji.ShowOutError();
 				}
 			}
 
