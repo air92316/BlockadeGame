@@ -24,7 +24,7 @@ public class game_manager : MonoBehaviour
 	public Condition[] condition;                       //病狀圖案 [部位] [該部位有的症狀數量]
 	public int[] type;									//病狀種類
 	public int[] ID;									//該關題目的病狀編號
-	public static int stage = 2;                        //第幾關
+	public static int stage = 0;                        //第幾關
 
 	public float game_time_limit = 20;					//剩餘時間
 	public GameObject Settle_canvas;					//結算的Canvas
@@ -38,7 +38,7 @@ public class game_manager : MonoBehaviour
 	void Start() {
 		gaming = false;                                     //先倒數所以入場景為非遊戲狀態
 		settle = false;										//重置結算畫面狀態 (為非)
-		game_time_limit = 1000;                               //開場重置時間
+		game_time_limit = 20;                               //開場重置時間
 		Settle_canvas.SetActive(false);						//重新入場景的時候把結算的背景關掉
 
 		//每關的病狀會增加 (關卡編號0-2)
