@@ -27,11 +27,14 @@ public class pass : MonoBehaviour
 
 	public int npc_ID;                          //紀錄NPC產生次數
 
-	public ShowMojis emoji;						//表情動畫
+	public ShowMojis emoji;                     //表情動畫
+
+	int com_error;								//紀錄電腦連續錯誤次數
 
 	void Start()
     {
 		npc_ID = 1;
+		com_error = 0;
 
 		is_player = game_manager.selected[player_num-1];                                        //如果該編號有被選擇就會回傳true (玩家遊玩)
 		auto = false;																			//還沒開始自動遊玩
@@ -171,14 +174,17 @@ public class pass : MonoBehaviour
 	//自動遊玩
 	IEnumerator Auto_Play() {
 		auto = true;															//排程已執行
-		yield return new WaitForSeconds(Random.Range(0.8f, 2.5f));				//每個選項電腦會猶豫0.5~2.4秒
+		yield return new WaitForSeconds(Random.Range(0.5f, 1f));				//每個選項電腦會猶豫0.5~1.5秒
 		if (m_manager.gaming == true) {
 			//如果現在這個是要隔離的
 			if (target.GetComponent<NPC_condition>().target == true) {
-				int max = Random.Range(3, 7);									//讓電腦聰明一點，會隨機[2/3]~[(3~5)/6]的機率答對
-				//2/3機率選對 (選擇隔離)
-				if (Random.Range(0, max) < max-(Random.Range(1,max-2))) {
+				
+				int max = Random.Range(3, 7);                                   //讓電腦聰明一點，會隨機[2/3]~[(3~5)/6]的機率答對
+
+				//機率選對 (選擇隔離) / 電腦不會連續出錯，如果連錯次數小於3則選擇隨機，否則一定回答正確
+				if (com_error < 3 ? Random.Range(0, max) < max - (Random.Range(1, max - 2)) : true) {
 					game_manager.score[game_manager.stage, player_num - 1] += 1;            //加1分
+					com_error = 0;
 					//播放隔離動畫+後面的人往前動畫
 					StartCoroutine(Leave_ani(target));
 					emoji.ShowOutOK();
@@ -186,26 +192,31 @@ public class pass : MonoBehaviour
 				//錯誤
 				else {
 					game_manager.score[game_manager.stage, player_num - 1] -= 1;            //扣1分
+					com_error += 1;
 					//播放入境動畫+後面的人往前動畫
 					StartCoroutine(Pass_ani(target));
 					Wrong(target);
 					emoji.ShowPassError();
 				}
+
 			}
 
 			//可以入境的
 			else {
+				int max = Random.Range(3, 7);                                   //讓電腦聰明一點，會隨機[2/3]~[(3~5)/6]的機率答對
 				//2/3機率選對 (選擇入境)
-				if (Random.Range(0, 3) < 2) {
+				if (com_error < 3 ? Random.Range(0, max) < max - (Random.Range(1, max - 2)) : true) {
 					game_manager.score[game_manager.stage, player_num - 1] += 1;            //加1分
-					//播放隔離動畫+後面的人往前動畫
+					com_error = 0;
+					//播放入境動畫
 					StartCoroutine(Pass_ani(target));
 					emoji.ShowPassOK();
 				}
 				//錯誤
 				else {
 					game_manager.score[game_manager.stage, player_num - 1] -= 1;            //扣1分
-					//播放入境動畫+後面的人往前動畫
+					com_error += 1;
+					//播放隔離動畫
 					StartCoroutine(Leave_ani(target));
 					emoji.ShowOutError();
 				}
