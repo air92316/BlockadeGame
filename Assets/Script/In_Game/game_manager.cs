@@ -27,11 +27,14 @@ public class game_manager : MonoBehaviour
 	public static int stage = 0;                        //第幾關
 
 	public float game_time_limit = 20;					//剩餘時間
-	public GameObject Settle_canvas;					//結算的Canvas
+	public GameObject Settle_canvas;                    //結算的Canvas
 
+	//每個玩家的分數 [關卡 , 分數]
+	//多一個是避免溢出用的 (額外判定有點麻煩._.)
 	public static int[,] score = { { 0, 0, 0, 0 },
 								   { 0, 0, 0, 0 },
-								   { 0, 0, 0, 0 } };         //每個玩家的分數 [關卡 , 分數]
+								   { 0, 0, 0, 0 },
+								   { 0, 0, 0, 0 } };
 
 	public static bool[] selected= { false, false, false, false };
 
