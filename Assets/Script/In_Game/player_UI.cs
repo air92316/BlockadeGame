@@ -52,7 +52,19 @@ public class player_UI : MonoBehaviour
 		Score.GetComponent<Animator>().Play("score_up");										//播放上升動畫
 
 		yield return new WaitForSeconds(1f);                                                    //停頓幾秒
-		SceneManager.LoadScene(2);                                                  //重新載入場景
+
+		//如果已經第三關了就接結算畫面
+		if (game_manager.stage == 3) {
+			for (int i = 0; i < 4; i++) {
+				gameCommon.scoreR1[i] = game_manager.score[0, i];
+				gameCommon.scoreR2[i] = game_manager.score[1, i];
+				gameCommon.scoreR3[i] = game_manager.score[2, i];
+				SceneManager.LoadScene(3);
+			}
+		}
+		//否則就重新載入場景
+		else
+			SceneManager.LoadScene(2);
 
 	}
 }

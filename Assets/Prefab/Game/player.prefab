@@ -613,6 +613,16 @@ PrefabInstance:
       propertyPath: color.a
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8883745446002749829, guid: 9b55ad0876bc67e47a24118bd39c9a03,
+        type: 3}
+      propertyPath: npc_ID
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8883745446002749829, guid: 9b55ad0876bc67e47a24118bd39c9a03,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1495005008151923922}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b55ad0876bc67e47a24118bd39c9a03, type: 3}
 --- !u!1 &7482842044905475193 stripped
@@ -784,6 +794,11 @@ PrefabInstance:
       propertyPath: temp_on
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8883745446002749829, guid: 9b55ad0876bc67e47a24118bd39c9a03,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1495005008151923922}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b55ad0876bc67e47a24118bd39c9a03, type: 3}
 --- !u!1 &7482842046160251893 stripped

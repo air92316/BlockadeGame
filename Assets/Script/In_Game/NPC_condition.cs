@@ -22,6 +22,8 @@ public class NPC_condition : MonoBehaviour
 
 	public Color color;
 	public bool temp_on;
+	
+	public int npc_ID;                      //用來記錄這是第幾個npc
 
 	void Start() {
 		target = false;
@@ -67,7 +69,7 @@ public class NPC_condition : MonoBehaviour
 		transform.GetComponent<NpcController>().Color = color;
 		transform.GetComponent<NpcController>().isNowTraget = temp_on;
 
-		//出境隔離動畫之後自行刪掉 (不然會有速度太快留在場上的情況)
+		//出境隔離動畫之後自行刪掉
 		if (to_delete == true)
 			Destroy(gameObject);
 	}

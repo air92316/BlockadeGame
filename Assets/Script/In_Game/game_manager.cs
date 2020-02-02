@@ -33,7 +33,7 @@ public class game_manager : MonoBehaviour
 								   { 0, 0, 0, 0 },
 								   { 0, 0, 0, 0 } };         //每個玩家的分數 [關卡 , 分數]
 
-	public static bool[] selected= { false, false, false, false };
+	public static bool[] selected= { true, true, true, true };
 
 	void Start() {
 		gaming = false;                                     //先倒數所以入場景為非遊戲狀態
@@ -93,15 +93,6 @@ public class game_manager : MonoBehaviour
 			gaming = false;							//禁止玩家繼續遊戲
 			settle = true;                          //用來播結算動畫
 			stage += 1;
-
-			if (stage == 3) {
-				for(int i = 0; i < 4; i++) {
-					gameCommon.scoreR1[i] = score[0,i];
-					gameCommon.scoreR2[i] = score[1,i];
-					gameCommon.scoreR3[i] = score[2,i];
-					SceneManager.LoadScene(3);
-				}
-			}
 		}
 		else {
 			StartCoroutine(game_time_count());

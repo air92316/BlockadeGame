@@ -388,7 +388,7 @@ GameObject:
   - component: {fileID: 8883745446002749829}
   m_Layer: 0
   m_Name: Npc
-  m_TagString: Untagged
+  m_TagString: npc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -495,5 +495,8 @@ MonoBehaviour:
   target: 0
   moving: 0
   to_delete: 0
+  same_block: 
   color: {r: 0.4, g: 0.4, b: 0.4, a: 1}
   temp_on: 0
+  npc_ID: 0
+  all_npc: 0
