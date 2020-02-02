@@ -53,6 +53,7 @@ MonoBehaviour:
   - {fileID: 2879515418991695752, guid: d447b1efefaaef446ab3595e25ea8783, type: 3}
   - {fileID: 2879515418991695752, guid: 9c28914aaeda97f4cbb911d9e035443b, type: 3}
   - {fileID: 2879515418991695752, guid: 31179fdaccf6c25449150e032c8ee6a4, type: 3}
+  - {fileID: 2879515418991695752, guid: fc906f92088eb6445a46a35e1eb23787, type: 3}
 --- !u!1 &1614969540825564846
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,6 +159,13 @@ MonoBehaviour:
   - {fileID: 5507509681934238652, guid: 5f5d54fcf0f45024aa0f24c9d02f1676, type: 3}
   - {fileID: 5507509681934238652, guid: c06facede3630e4499917aa3504c1b16, type: 3}
   - {fileID: 5507509681934238652, guid: 1467acc75967f84479545fcbfbee1e7c, type: 3}
+  - {fileID: 5507509681934238652, guid: b12cce3ea7f616640aba37efb5eb098c, type: 3}
+  - {fileID: 5507509681934238652, guid: edbc6527dc21e91438211856c44f3409, type: 3}
+  - {fileID: 5507509681934238652, guid: 1496ba433de8297488d987f7916570f0, type: 3}
+  - {fileID: 5507509681934238652, guid: 9af994fb80d9d0345aa2879114d76dec, type: 3}
+  - {fileID: 5507509681934238652, guid: fd09752f4af61fd4084fff6cf8f6c248, type: 3}
+  - {fileID: 5507509681934238652, guid: b4dd02597c89faa47a70259cb8f932b9, type: 3}
+  - {fileID: 5507509681934238652, guid: 75b1be684e177ab45a3cb655f3e2fe9d, type: 3}
 --- !u!1 &3719592632047418214
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,6 +221,9 @@ MonoBehaviour:
   - {fileID: 3415843350768060133, guid: b035864962c5fbf4cb4f242626381263, type: 3}
   - {fileID: 3415843350768060133, guid: 9b7d719c18d49d24789607f27ca3e1ea, type: 3}
   - {fileID: 3415843350768060133, guid: a96a616cdf6b23a4696ac513cea47d64, type: 3}
+  - {fileID: 3415843350768060133, guid: ce7b663354bdb0f4f99946460c7ad408, type: 3}
+  - {fileID: 3415843350768060133, guid: e79c0d9eec9746c429d19c05676f6fbd, type: 3}
+  - {fileID: 3415843350768060133, guid: 4fc12b964b686374d8d1a50c6d9815bf, type: 3}
 --- !u!1 &4031550022875344666
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,6 +278,7 @@ MonoBehaviour:
   - {fileID: 782357069741503360, guid: adb27f88ba570bd42a2f8bb4e99e3a2d, type: 3}
   - {fileID: 782357069741503360, guid: fa3b8337bbb0cc549be68b0ded73f676, type: 3}
   - {fileID: 782357069741503360, guid: 75a84688f6aa1194b9854a69e7722c3c, type: 3}
+  - {fileID: 782357069741503360, guid: 6b5cb4dd3ff6b3c4cb940587318ab373, type: 3}
 --- !u!1 &5433785847736229109
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,4 +511,3 @@ MonoBehaviour:
   color: {r: 0.4, g: 0.4, b: 0.4, a: 1}
   temp_on: 0
   npc_ID: 0
-  all_npc: 0
