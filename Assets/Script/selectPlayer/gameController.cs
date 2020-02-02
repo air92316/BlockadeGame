@@ -47,6 +47,7 @@ public class gameController : MonoBehaviour
         switch(scene_Status){
             case scene_Status.Player:
                 this.CheckPlayer();
+
                 if (game_manager.selected[0] || game_manager.selected[1] || game_manager.selected[2] || game_manager.selected[3])
                 {
                     animatorTimePanel.SetBool("IsOpen", true);
@@ -72,6 +73,23 @@ public class gameController : MonoBehaviour
                 else
                 {
                     animatorTimePanel.SetBool("IsOpen", false);
+                }
+
+                if (Input.GetKey(KeyCode.Space))
+                {
+                    scene_Status++;
+                    animatorTimePanel.SetBool("IsOpen", false);
+                    timeComedown = 0;
+                    for (int i = 0; i < game_manager.selected.Length; i++)
+                    {
+                        if (!game_manager.selected[i])
+                        {
+                            _playerSerachTime[i] = Random.Range(3.0f, 10.0f);
+                            _selectInput.playerPanel[i].serach.SetActive(true);
+                            _selectInput.playerPanel[i].loading.SetActive(true);
+                        }
+
+                    }
                 }
                 break;
             case scene_Status.Serach:
