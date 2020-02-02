@@ -94,6 +94,12 @@ public class pass : MonoBehaviour
 			else if (auto == false) {
 				StartCoroutine(Auto_Play());
 			}
+
+		}
+		else {
+			if(auto == true) {
+				StopCoroutine(Auto_Play());
+			}
 		}
 	}
 	
@@ -131,49 +137,50 @@ public class pass : MonoBehaviour
 
 	//自動遊玩
 	IEnumerator Auto_Play() {
-		auto = true;                                                   //排程已執行
+		auto = true;														//排程已執行
 		yield return new WaitForSeconds(Random.Range(0.5f, 3f));            //每個選項電腦會猶豫0.5~3秒
+		if (m_manager.gaming == true) {
+			//如果現在這個是要隔離的
+			if (target.GetComponent<NPC_condition>().target == true) {
 
-		//如果現在這個是要隔離的
-		if (target.GetComponent<NPC_condition>().target == true) {
-
-			//2/3機率選對 (選擇隔離)
-			if (Random.Range(0, 3) < 2) {
-				game_manager.score[game_manager.stage, player_num - 1] += 1;            //加1分
-				//播放隔離動畫+後面的人往前動畫
-				StartCoroutine(Leave_ani(target));
+				//2/3機率選對 (選擇隔離)
+				if (Random.Range(0, 3) < 2) {
+					game_manager.score[game_manager.stage, player_num - 1] += 1;            //加1分
+																							//播放隔離動畫+後面的人往前動畫
+					StartCoroutine(Leave_ani(target));
+				}
+				//錯誤
+				else {
+					game_manager.score[game_manager.stage, player_num - 1] -= 1;            //扣1分
+																							//播放入境動畫+後面的人往前動畫
+					StartCoroutine(Pass_ani(target));
+					Wrong(target);
+				}
 			}
-			//錯誤
+
+			//可以入境的
 			else {
-				game_manager.score[game_manager.stage, player_num - 1] -= 1;            //扣1分
-				//播放入境動畫+後面的人往前動畫
-				StartCoroutine(Pass_ani(target));
-				Wrong(target);
+				//2/3機率選對 (選擇入境)
+				if (Random.Range(0, 3) < 2) {
+					game_manager.score[game_manager.stage, player_num - 1] += 1;            //加1分
+																							//播放隔離動畫+後面的人往前動畫
+					StartCoroutine(Pass_ani(target));
+				}
+				//錯誤
+				else {
+					game_manager.score[game_manager.stage, player_num - 1] -= 1;            //扣1分
+																							//播放入境動畫+後面的人往前動畫
+					StartCoroutine(Leave_ani(target));
+				}
 			}
+
+			//如果分數小於零讓他等於零
+			if (game_manager.score[game_manager.stage, player_num - 1] < 0)
+				game_manager.score[game_manager.stage, player_num - 1] = 0;
+
+			//後面的人往前
+			next_target.GetComponent<Animator>().Play("move_next", next_target.GetComponent<Animator>().GetLayerIndex("move"));
 		}
-		//可以入境的
-		else {
-			//2/3機率選對 (選擇入境)
-			if (Random.Range(0, 3) < 2) {
-				game_manager.score[game_manager.stage, player_num - 1] += 1;            //加1分
-				//播放隔離動畫+後面的人往前動畫
-				StartCoroutine(Pass_ani(target));
-			}
-			//錯誤
-			else {
-				game_manager.score[game_manager.stage, player_num - 1] -= 1;            //扣1分
-				//播放入境動畫+後面的人往前動畫
-				StartCoroutine(Leave_ani(target));
-			}
-		}
-
-		//如果分數小於零讓他等於零
-		if (game_manager.score[game_manager.stage, player_num - 1] < 0)
-			game_manager.score[game_manager.stage, player_num - 1] = 0;
-
-		//後面的人往前
-		next_target.GetComponent<Animator>().Play("move_next", next_target.GetComponent<Animator>().GetLayerIndex("move"));
-
 
 		yield return new WaitForSeconds(0.5f);          //等後面的人往前
 		StartCoroutine(Auto_Play());
