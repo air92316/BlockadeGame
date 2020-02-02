@@ -174,12 +174,12 @@ public class pass : MonoBehaviour
 	//自動遊玩
 	IEnumerator Auto_Play() {
 		auto = true;															//排程已執行
-		yield return new WaitForSeconds(Random.Range(0.3f, 0.7f));				//每個選項電腦會猶豫0.3~0.7秒
+		yield return new WaitForSeconds(Random.Range(0.2f, 0.5f));				//每個選項電腦會猶豫0.3~0.7秒
 		if (m_manager.gaming == true) {
 			//如果現在這個是要隔離的
 			if (target.GetComponent<NPC_condition>().target == true) {
 				
-				int max = Random.Range(3, 7);                                   //讓電腦聰明一點，會隨機[2/3]~[(3~5)/6]的機率答對
+				int max = Random.Range(4, 7);                                   //讓電腦聰明一點，會隨機[2/3]~[(3~5)/6]的機率答對
 
 				//機率選對 (選擇隔離) / 電腦不會連續出錯，如果連錯次數小於2則選擇隨機，否則一定回答正確
 				if (com_error < 2 ? Random.Range(0, max) < max - (Random.Range(1, max - 2)) : true) {
@@ -203,7 +203,7 @@ public class pass : MonoBehaviour
 
 			//可以入境的
 			else {
-				int max = Random.Range(3, 7);                                   //讓電腦聰明一點，會隨機[2/3]~[(3~5)/6]的機率答對
+				int max = Random.Range(4, 7);                                   //讓電腦聰明一點，會隨機[2/3]~[(3~5)/6]的機率答對
 				//機率選對 (選擇入境) / 電腦不會連續出錯，如果連錯次數小於2則選擇隨機，否則一定回答正確
 				if (com_error < 2 ? Random.Range(0, max) < max - (Random.Range(1, max - 2)) : true) {
 					game_manager.score[game_manager.stage, player_num - 1] += 1;            //加1分
@@ -230,7 +230,7 @@ public class pass : MonoBehaviour
 			next_target.GetComponent<Animator>().Play("move_next");
 		}
 
-		yield return new WaitForSeconds(0.5f);          //等後面的人往前
+		yield return new WaitForSeconds(0.3f);          //等後面的人往前
 		StartCoroutine(Auto_Play());
 	}
 }
