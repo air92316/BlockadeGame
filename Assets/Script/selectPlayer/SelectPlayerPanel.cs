@@ -6,6 +6,7 @@ public class SelectPlayerPanel : MonoBehaviour
 {
 
     public GameObject check;
+    public GameObject checkCancel;
     public GameObject serach;//serach
     public GameObject loading;
     public Animator animatorPlayer;

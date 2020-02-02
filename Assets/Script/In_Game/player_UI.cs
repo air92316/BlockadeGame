@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 //操控每個玩家底下自己的UI (時間條/分數)
@@ -51,8 +51,8 @@ public class player_UI : MonoBehaviour
 		score_data.score = game_manager.score[game_manager.stage, score_data.player_ID];        //顯示新的分數 (歸零)
 		Score.GetComponent<Animator>().Play("score_up");										//播放上升動畫
 
-		yield return new WaitForSeconds(1f);													//停頓幾秒
-		EditorSceneManager.LoadScene("Game");													//重新載入場景
+		yield return new WaitForSeconds(1f);                                                    //停頓幾秒
+		SceneManager.LoadScene(2);                                                  //重新載入場景
 
 	}
 }

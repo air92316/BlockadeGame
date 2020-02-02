@@ -48,7 +48,7 @@ public class selectInput : MonoBehaviour
     void InputCancel(int v_playerNum)
     {
         game_manager.selected[v_playerNum] = false;
-        playerPanel[v_playerNum].check.GetComponent<Animator>().SetTrigger("OK");
+        playerPanel[v_playerNum].checkCancel.GetComponent<Animator>().SetTrigger("OK");
         playerPanel[v_playerNum].animatorPlayer.SetBool("IsPlay", game_manager.selected[v_playerNum]);
     }
 

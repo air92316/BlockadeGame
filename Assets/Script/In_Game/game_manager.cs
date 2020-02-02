@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 //分部位的症狀種類
@@ -99,7 +99,7 @@ public class game_manager : MonoBehaviour
 					gameCommon.scoreR1[i] = score[0,i];
 					gameCommon.scoreR2[i] = score[1,i];
 					gameCommon.scoreR3[i] = score[2,i];
-					EditorSceneManager.LoadScene("Score");
+					SceneManager.LoadScene(3);
 				}
 			}
 		}
