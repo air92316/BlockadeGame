@@ -15,8 +15,6 @@ public class player_UI : MonoBehaviour
 
 	Score_num score_data;									//抓分數的資料 (簡化程式用)
 	bool have_play;											//已經撥放結算動畫了
-
-	int now_stage;											//因為遊戲結束關卡就會先+1，所以開場抓避免出錯
 	
 	void Start()
     {
@@ -24,8 +22,6 @@ public class player_UI : MonoBehaviour
 		manager = GameObject.Find("game_manager");
 		m_manager = manager.GetComponent<game_manager>();
 		score_data = Score.GetComponent<Score_num>();
-
-		now_stage = game_manager.stage;						//開始的時候就先抓現在的關卡
 	}
 	
     void Update()
@@ -47,8 +43,10 @@ public class player_UI : MonoBehaviour
 		have_play = true;										//避免重覆播放
 		Score.GetComponent<Animator>().Play("score_down");      //播放下降動畫
 
-		yield return new WaitForSeconds(4f);													//讓分數顯示停頓幾秒
-		score_data.score = game_manager.score[game_manager.stage, score_data.player_ID];        //顯示新的分數 (歸零)
+		yield return new WaitForSeconds(4f);                                                    //讓分數顯示停頓幾秒
+		score_data.now_stage = game_manager.stage;                                              //關卡更改 (歸零)
+		score_data.score = game_manager.score[score_data.now_stage, score_data.player_ID];      //避免扣分動畫
+		score_data.nowScore = score_data.score;
 		Score.GetComponent<Animator>().Play("score_up");										//播放上升動畫
 
 		yield return new WaitForSeconds(1f);                                                    //停頓幾秒

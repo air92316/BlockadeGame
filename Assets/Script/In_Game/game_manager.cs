@@ -101,4 +101,16 @@ public class game_manager : MonoBehaviour
 			StartCoroutine(game_time_count());
 		}
 	}
+
+	//將遊戲紀錄歸零
+	public static void reset() {
+
+		//分數
+		score = new int[,] { { 0, 0, 0, 0 },
+							 { 0, 0, 0, 0 },
+							 { 0, 0, 0, 0 },
+							 { 0, 0, 0, 0 } };
+		stage = 0;
+		selected = new bool[]{ false, false, false, false };
+	}
 }

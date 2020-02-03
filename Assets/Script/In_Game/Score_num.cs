@@ -19,9 +19,9 @@ public class Score_num : MonoBehaviour
 	public AudioSource auido_NO;
 	
 
-	int now_stage;                       //因為遊戲結束關卡就會先+1，所以開場抓避免出錯
+	public int now_stage;                //因為遊戲結束關卡就會先+1，所以開場抓避免出錯
 
-	int nowScore;						//用來記錄目前分數
+	public int nowScore;						//用來記錄目前分數
 	void Start()
     {
 		player_ID = transform.GetComponentInParent<pass>().player_num - 1;          //玩家編號是1~4，這裡要-1
@@ -48,13 +48,5 @@ public class Score_num : MonoBehaviour
 		//因為圖片剛好對應0~9所以直接抓該位數就好
 		ten.sprite = num[score / 10];
 		digit.sprite = num[score % 10];
-	}
-
-	//數字疊加
-	IEnumerator Add_Num() {
-		score += 1;
-		yield return new WaitForSeconds(0.2f);
-		if (score < score_sum)
-			StartCoroutine(Add_Num());
 	}
 }
